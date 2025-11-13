@@ -28,9 +28,10 @@
 		"vite": "^7.1.2"
 	},
 	"dependencies": {
-		"@ffffff-board/server": "workspace:*",
 		"@elysiajs/eden": "^1.4.5",
+		"@ffffff-board/server": "workspace:*",
 		"@tanstack/svelte-form": "^1.19.2",
+		"@xyflow/svelte": "^1.4.2",
 		"mode-watcher": "^1.1.0",
 		"zod": "catalog:"
 	}

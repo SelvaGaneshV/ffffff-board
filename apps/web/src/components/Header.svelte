@@ -1,9 +1,5 @@
 <script lang="ts">
-
-    const links = [
-        { to: "/", label: "Home" },
-    ];
-
+const links = [{ to: "/", label: "Home" }];
 </script>
 
 <div>

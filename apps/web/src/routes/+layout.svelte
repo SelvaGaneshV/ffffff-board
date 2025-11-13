@@ -1,13 +1,14 @@
 <script lang="ts">
-	import '../app.css';
-    import Header from '../components/Header.svelte';
+import { ModeWatcher, mode } from "mode-watcher";
+import "@xyflow/svelte/dist/style.css";
+import "../app.css";
 
-	let { children } = $props();
+let { children } = $props();
 </script>
 
-<div class="grid h-svh grid-rows-[auto_1fr]">
-	<Header />
-	<main class="overflow-y-auto">
-		{@render children()}
-	</main>
+<ModeWatcher defaultMode="system"/>
+<div class=" h-svh w-full " >
+    {@render children?.()}
 </div>
+
+
