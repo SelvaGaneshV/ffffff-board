@@ -1,14 +1,16 @@
 <script lang="ts">
-import { ModeWatcher, mode } from "mode-watcher";
-import "@xyflow/svelte/dist/style.css";
-import "../app.css";
+  import { ModeWatcher } from "mode-watcher";
 
-let { children } = $props();
+  import { SvelteFlowProvider } from "@xyflow/svelte";
+  import "@xyflow/svelte/dist/style.css";
+  import "../app.css";
+
+  let { children } = $props();
 </script>
 
-<ModeWatcher defaultMode="system"/>
-<div class=" h-svh w-full " >
+<ModeWatcher defaultMode="system" />
+<div class=" h-svh w-full">
+  <SvelteFlowProvider>
     {@render children?.()}
+  </SvelteFlowProvider>
 </div>
-
-
