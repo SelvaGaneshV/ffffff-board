@@ -6,10 +6,9 @@
 <script lang="ts">
   import {
     NodeResizer,
-    NodeToolbar,
-    type NodeProps,
-    useSvelteFlow,
     useOnSelectionChange,
+    useSvelteFlow,
+    type NodeProps,
   } from "@xyflow/svelte";
 
   let { id, selected, dragging, data }: NodeProps<DiamondNodeType> = $props();

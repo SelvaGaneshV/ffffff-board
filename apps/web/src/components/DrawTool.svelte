@@ -1,13 +1,11 @@
 <script module>
-  type DrawToolProps = {
-    shape: "rectangle" | "diamond" | "ellipse";
-    toggleTool: () => void;
-  };
 </script>
 
 <script lang="ts">
+  import { toolBarStore } from "$lib/context/toolbar-store.svelte";
   import { useNodes, useSvelteFlow, type XYPosition } from "@xyflow/svelte";
-  const { shape, toggleTool }: DrawToolProps = $props();
+
+  const shape = $derived(toolBarStore?.shape);
   const { screenToFlowPosition, getViewport } = useSvelteFlow();
   const nodes = useNodes();
 
@@ -78,7 +76,7 @@
 
     start = null;
     end = null;
-    toggleTool();
+    toolBarStore.shape = "";
   }
 
   // derived preview rectangle (screen pixels)
@@ -90,11 +88,6 @@
         }
       : null,
   );
-
-  // helper used in markup for diamond inner size
-  function minDim(w: number, h: number) {
-    return Math.min(w, h);
-  }
 </script>
 
 <div
@@ -156,7 +149,7 @@
     height: 100%;
     width: 100%;
     transform-origin: top left;
-    cursor: copy;
+    cursor: crosshair;
     touch-action: none;
   }
 

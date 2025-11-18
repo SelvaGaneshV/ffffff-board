@@ -13,25 +13,19 @@
   import DrawTool from "../components/DrawTool.svelte";
   import DiamondNode from "../components/node-types/DiamondNode.svelte";
   import EllipseNode from "../components/node-types/EllipseNode.svelte";
-  import { setToolBarContext } from "$lib/context/toolbar-context";
+  import { toolBarStore } from "$lib/context/toolbar-store.svelte";
+
   const { screenToFlowPosition } = useSvelteFlow();
   let nodes = $state.raw<Node[]>([]);
   let edges = $state.raw<Edge[]>([]);
-  let drawToolEnabled = $state(false);
-  let shape = $state("");
-  setToolBarContext("drawToolEnabled", drawToolEnabled);
-
-  const handleDrawTool = () => {
-    drawToolEnabled = !drawToolEnabled;
-  };
-
+  const isDrawTooledEnabled = $derived(!!toolBarStore?.shape);
   const nodeTypes = {
     text: TextNode,
     rectangle: RectangleNode,
     diamond: DiamondNode,
     ellipse: EllipseNode,
   };
-  const handleDoubleClick = (e: MouseEvent) => {
+  const addTextNodeOnDoubleClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
 
     if (
@@ -64,7 +58,7 @@
   <SvelteFlow
     zoomOnDoubleClick={false}
     {nodeTypes}
-    ondblclick={handleDoubleClick}
+    ondblclick={addTextNodeOnDoubleClick}
     bind:nodes
     bind:edges
     style="background-color:transparent;"
@@ -74,8 +68,8 @@
     <ZoomControls />
 
     <Background bgColor="transparent" />
-    {#if drawToolEnabled}
-      <DrawTool shape="diamond" toggleTool={handleDrawTool} />
+    {#if isDrawTooledEnabled}
+      <DrawTool />
     {/if}
   </SvelteFlow>
 </div>
