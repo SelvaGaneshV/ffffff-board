@@ -76,7 +76,7 @@
 
     start = null;
     end = null;
-    toolBarStore.shape = "";
+    toolBarStore.shape = undefined;
   }
 
   // derived preview rectangle (screen pixels)

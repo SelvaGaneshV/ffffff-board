@@ -111,6 +111,17 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+@layer utilities {
+  .scrollbar-none {
+    -ms-overflow-style: none; /* IE and old Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge (Chromium) */
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

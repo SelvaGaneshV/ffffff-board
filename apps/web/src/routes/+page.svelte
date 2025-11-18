@@ -14,6 +14,7 @@
   import DiamondNode from "../components/node-types/DiamondNode.svelte";
   import EllipseNode from "../components/node-types/EllipseNode.svelte";
   import { toolBarStore } from "$lib/context/toolbar-store.svelte";
+  import { isTyping } from "$lib/utils";
 
   const { screenToFlowPosition } = useSvelteFlow();
   let nodes = $state.raw<Node[]>([]);
@@ -25,28 +26,29 @@
     diamond: DiamondNode,
     ellipse: EllipseNode,
   };
-  const addTextNodeOnDoubleClick = (e: MouseEvent) => {
-    const target = e.target as HTMLElement;
 
-    if (
-      target?.className.includes("svelte-flow__pane svelte-flow__container")
-    ) {
+  const addTextNodeOnDoubleClick = (e: MouseEvent) => {
+    const active = document.activeElement;
+
+    if (active?.tagName !== "BUTTON" && !isTyping()) {
       e.stopPropagation();
       const position = screenToFlowPosition(
         {
-          x: e.pageX,
-          y: e.pageY,
+          x: e.clientX - 3,
+          y: e.clientY - 15,
         },
         {
-          snapToGrid: true,
+          snapToGrid: false,
         },
       );
+      const id = crypto.randomUUID();
       nodes = [
         ...nodes,
         {
-          id: `${Math.random()}`,
+          id: id,
           type: "text",
-          data: { label: "2" },
+          data: { text: "" },
+
           position,
         },
       ];

@@ -4,6 +4,18 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
+export function isTyping() {
+	if (!window) return false
+	const el = document.activeElement;
+	return (
+		el &&
+		(
+			el.tagName === "INPUT" ||
+			el.tagName === "TEXTAREA" ||
+			(el as HTMLElement).isContentEditable
+		)
+	);
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type WithoutChild<T> = T extends { child?: any } ? Omit<T, "child"> : T;
